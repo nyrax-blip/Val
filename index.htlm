@@ -1,0 +1,145 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+<meta charset="UTF-8">
+<title>Mendrika 💖</title>
+
+<style>
+body {
+  background: #ffe6f0;
+  overflow: hidden;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  height: 100vh;
+  font-family: Arial, sans-serif;
+}
+
+.envelope {
+  width: 320px;
+  height: 220px;
+  position: relative;
+  cursor: pointer;
+  z-index: 2;
+}
+
+.back {
+  width: 100%;
+  height: 100%;
+  background: #ff5fa2;
+  position: absolute;
+  border-radius: 12px;
+}
+
+.flap {
+  width: 0;
+  height: 0;
+  border-left: 160px solid transparent;
+  border-right: 160px solid transparent;
+  border-bottom: 120px solid #ff8fc7;
+  position: absolute;
+  top: 0;
+  transform-origin: top;
+  transition: transform 0.8s ease;
+}
+
+.letter {
+  position: absolute;
+  background: white;
+  width: 90%;
+  height: 90%;
+  top: 5%;
+  left: 5%;
+  text-align: center;
+  padding: 20px;
+  box-sizing: border-box;
+  border-radius: 12px;
+  opacity: 0;
+  transition: opacity 0.8s ease;
+}
+
+.envelope.open .flap {
+  transform: rotateX(180deg);
+}
+
+.envelope.open .letter {
+  opacity: 1;
+}
+
+h2 {
+  color: #ff2f92;
+}
+
+button {
+  margin: 10px;
+  padding: 10px 20px;
+  border: none;
+  border-radius: 20px;
+  background: #ff5fa2;
+  color: white;
+  font-size: 16px;
+  cursor: pointer;
+}
+
+button:hover {
+  background: #ff2f92;
+}
+
+/* Cœurs animés */
+.heart {
+  position: absolute;
+  bottom: -20px;
+  color: #ff5fa2;
+  font-size: 20px;
+  animation: float 5s linear infinite;
+}
+
+@keyframes float {
+  0% { transform: translateY(0); opacity: 1; }
+  100% { transform: translateY(-800px); opacity: 0; }
+}
+</style>
+</head>
+
+<body>
+
+<audio id="music">
+  <source src="https://www.bensound.com/bensound-music/bensound-love.mp3" type="audio/mpeg">
+</audio>
+
+<div class="envelope" onclick="openEnvelope()">
+  <div class="back"></div>
+  <div class="flap"></div>
+  <div class="letter">
+    <h2>💖 Mendrika 💖</h2>
+    <p>Veux-tu être<br><strong>ma Valentine ?</strong></p>
+    <button onclick="answer(event)">Oui 😍</button>
+    <button onclick="answer(event)">Évidemment 💖</button>
+  </div>
+</div>
+
+<script>
+function openEnvelope() {
+  document.querySelector('.envelope').classList.add('open');
+  document.getElementById('music').play();
+  setInterval(createHeart, 500);
+}
+
+function answer(e) {
+  e.stopPropagation();
+  alert("💘 J'étais sûr que tu dirais oui 💘");
+}
+
+function createHeart() {
+  const heart = document.createElement("div");
+  heart.className = "heart";
+  heart.innerHTML = "💖";
+  heart.style.left = Math.random() * 100 + "vw";
+  heart.style.fontSize = Math.random() * 20 + 15 + "px";
+  document.body.appendChild(heart);
+  setTimeout(() => heart.remove(), 5000);
+}
+</script>
+
+</body>
+</html>
